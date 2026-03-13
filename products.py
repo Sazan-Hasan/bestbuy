@@ -1,5 +1,4 @@
 class Product:
-
     def __init__(self, name, price, quantity):
         if not name or price < 0 or quantity < 0:
             raise Exception("Invalid product values")
@@ -17,9 +16,10 @@ class Product:
             raise Exception("Quantity cannot be negative")
 
         self.quantity = quantity
-
         if self.quantity == 0:
             self.deactivate()
+        else:
+            self.activate()
 
     def is_active(self):
         return self.active
@@ -31,11 +31,14 @@ class Product:
         self.active = False
 
     def show(self):
-        print(f"{self.name}, Price: {self.price}, Quantity: {self.quantity}")
+        print(f"{self.name}, Price: ${self.price}, Quantity: {self.quantity}")
 
     def buy(self, quantity):
         if quantity <= 0:
-            raise Exception("Invalid purchase quantity")
+            raise Exception("Quantity must be greater than 0")
+
+        if not self.active:
+            raise Exception("Product is not active")
 
         if quantity > self.quantity:
             raise Exception("Not enough items in stock")
@@ -45,5 +48,4 @@ class Product:
         if self.quantity == 0:
             self.deactivate()
 
-        return quantity * self.price
-
+        return self.price * quantity

@@ -1,8 +1,6 @@
 import products
 import store
 
-
-# setup initial stock of inventory
 product_list = [
     products.Product("MacBook Air M2", price=1450, quantity=100),
     products.Product("Bose QuietComfort Earbuds", price=250, quantity=500),
@@ -25,10 +23,10 @@ def start(best_buy):
         choice = input("Please choose a number: ")
 
         if choice == "1":
-            products_list = best_buy.get_all_products()
+            active_products = best_buy.get_all_products()
 
             print("------")
-            for i, product in enumerate(products_list, start=1):
+            for i, product in enumerate(active_products, start=1):
                 print(f"{i}. ", end="")
                 product.show()
             print("------")
@@ -38,10 +36,10 @@ def start(best_buy):
             print(f"Total of {total} items in store")
 
         elif choice == "3":
-            products_list = best_buy.get_all_products()
+            active_products = best_buy.get_all_products()
 
             print("------")
-            for i, product in enumerate(products_list, start=1):
+            for i, product in enumerate(active_products, start=1):
                 print(f"{i}. ", end="")
                 product.show()
             print("------")
@@ -55,19 +53,19 @@ def start(best_buy):
                 if product_num == "":
                     break
 
-                amount_str = input("What amount do you want? ")
+                amount = input("What amount do you want? ")
 
-                if amount_str == "":
+                if amount == "":
                     break
 
                 product_index = int(product_num) - 1
-                quantity = int(amount_str)
+                quantity = int(amount)
 
-                shopping_list.append((products_list[product_index], quantity))
+                shopping_list.append((active_products[product_index], quantity))
 
             if shopping_list:
                 total_price = best_buy.order(shopping_list)
-                print(f"Order made! Total payment: {total_price} dollars.")
+                print(f"Order made! Total Payment: {total_price} dollars.")
 
         elif choice == "4":
             break

@@ -1,8 +1,6 @@
 import products
 
-
 class Store:
-
     def __init__(self, product_list):
         self.products = product_list
 
@@ -27,8 +25,6 @@ class Store:
 
     def order(self, shopping_list):
         total_price = 0
-
         for product, quantity in shopping_list:
             total_price += product.buy(quantity)
-
         return total_price
