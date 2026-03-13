@@ -58,14 +58,29 @@ def start(best_buy):
                 if amount == "":
                     break
 
-                product_index = int(product_num) - 1
-                quantity = int(amount)
+                try:
+                    product_index = int(product_num) - 1
+                    quantity = int(amount)
 
-                shopping_list.append((active_products[product_index], quantity))
+                    if product_index < 0 or product_index >= len(active_products):
+                        print("Error adding product!")
+                        continue
+
+                    if quantity <= 0:
+                        print("Error adding product!")
+                        continue
+
+                    shopping_list.append((active_products[product_index], quantity))
+
+                except ValueError:
+                    print("Error adding product!")
 
             if shopping_list:
-                total_price = best_buy.order(shopping_list)
-                print(f"Order made! Total Payment: {total_price} dollars.")
+                try:
+                    total_price = best_buy.order(shopping_list)
+                    print(f"Order made! total payment: {total_price} dollars.")
+                except Exception as e:
+                    print(e)
 
         elif choice == "4":
             break
